@@ -1,11 +1,18 @@
-import { FETCH_STATUS_IN_PROGRESS, FETCH_STATUS_IN_FINISHED, SET_FETCHED_USERS, CLEAN_USERS } from './types';
+import {
+    FETCH_STATUS_IN_PROGRESS,
+    FETCH_STATUS_IN_FINISHED,
+    SET_FETCHED_USERS,
+    CLEAN_USERS,
+    SET_FETCH_USERS_PARAMS
+} from './types';
 
 const initialState = {
     users: [],
     name: '',
     email: '',
     fetching: false,
-    token: ''
+    token: '',
+    fetchUserParams: ''
 };
 
 export function userReducer (state = initialState, action) {
@@ -18,6 +25,8 @@ export function userReducer (state = initialState, action) {
             return { ...state, users: action.payload };
         case CLEAN_USERS:
             return { ...state, users: [] };
+        case SET_FETCH_USERS_PARAMS:
+            return { ...state, fetchUserParams: action.payload }
         default:
             return state;
     }

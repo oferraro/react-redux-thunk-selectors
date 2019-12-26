@@ -1,27 +1,20 @@
 import React from "react";
 import {connect} from "react-redux";
-import {cleanUsers, fetchUsers} from "../redux/actions";
+import {cleanUsers, fetchUsers, setFetchUsersParams} from "../redux/actions";
 import {AComponentRenderer} from "./AComponentRenderer";
 import './AComponent.scss';
 import {userNamesSelector} from "../redux/selectors";
 
 interface AComponentProps {
     doFetchUsers: any;
-}
-
-interface AComponentState {
-    users: [];
+    usersFilter: string;
 }
 
 class AComponentContainer extends React.Component<any, AComponentProps> {
     public text: string = 'test';
 
-    componentDidMount(): void {
-        console.log('here mount', this.props);
-    }
-
-    callDoFetchUsers() {
-        this.props.doFetchUsers();
+    callDoFetchUsers(param: string) {
+        this.props.doFetchUsers(param);
     }
 
     callDoCleanUsers() {
@@ -47,7 +40,11 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = (dispatch: any) => {
     return {
         doCleanUsers: () => { dispatch(cleanUsers()) },
-        doFetchUsers: () => { dispatch(fetchUsers) },
+        doFetchUsers: (params: string) => {
+            params = (typeof params !== 'string') ? '' : params;
+            dispatch(setFetchUsersParams(params));
+            dispatch(fetchUsers.bind(dispatch, params))
+        },
     }
 };
 

@@ -19,7 +19,8 @@ export class AComponentRenderer extends React.Component<AComponentRendererState>
             <ul className={ (this.props.users.length > 0 ? 'users-list': '') }>
                 { users as ReactNode}
             </ul>
-            <button onClick={this.props.doFetchUsers.bind(this)}>get Users</button>
+            <button onClick={this.props.doFetchUsers.bind(this, 'filterIdge5')}>get Users with id >= 5 (Try using a selector/filter here)</button>
+            <button onClick={this.props.doFetchUsers.bind(this)}>get All Users</button>
             <button onClick={this.props.doCleanUsers.bind(this)}>clean Users</button>
         </>
     }
